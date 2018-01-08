@@ -27,12 +27,10 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/linux-amd64/helm /bin/helm \
     && rm -rf /tmp/*
 
-
 # Install landscaper
 RUN curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/*
-
 
 # Install kubectl
 ADD ${KUBECTL_URL} /usr/local/bin/kubectl
