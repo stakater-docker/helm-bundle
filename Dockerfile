@@ -16,16 +16,22 @@ ARG KUBECTL_URL=https://storage.googleapis.com/kubernetes-release/release/${KUBE
 
 ENV HOME=/home/${USER}/
 
+# Install helm
 RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/linux-amd64/helm /bin/helm \
     && rm -rf /tmp/*
 
+
+# Install landscaper
 RUN curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/*
 
+
+# Install kubectl
 ADD ${KUBECTL_URL} /usr/local/bin/kubectl
 
+# Set kubectl permissions and verify that installed tools work
 RUN set -x && \
     chmod +x /usr/local/bin/kubectl \
     && adduser helm -Du ${GUID} -h ${HOME} \
