@@ -14,6 +14,9 @@ ARG LANDSCAPER_URL=https://github.com/Eneco/landscaper/releases/download/${LANDS
 ARG KUBECTL_VERSION=v1.9.1
 ARG KUBECTL_URL=https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
 
+ARG KOPS_VERSION=1.8.0
+ARG KOPS_URL=https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64
+
 ENV HOME=/home/${USER}/
 
 # Install helm
@@ -31,13 +34,18 @@ RUN curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
 # Install kubectl
 ADD ${KUBECTL_URL} /usr/local/bin/kubectl
 
+# Install kops
+ADD ${KOPS_URL} /usr/local/bin/kops
+
 # Set kubectl permissions and verify that installed tools work
-RUN set -x && \
-    chmod +x /usr/local/bin/kubectl \
+RUN set -x \
+    && chmod +x /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kops \
     && adduser helm -Du ${GUID} -h ${HOME} \
     && kubectl version --client \
     && helm version --client \
-    && landscaper version
+    && landscaper version \
+    && kops version
 
 USER ${USER}
 
