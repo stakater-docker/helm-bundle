@@ -50,7 +50,4 @@ RUN set -x \
 
 USER ${USER}
 
-# Remove this after generating kubeconfig via pipeline
-COPY config ${HOME}.kube/config
-
 ENTRYPOINT [ "" ]
