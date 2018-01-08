@@ -19,6 +19,9 @@ ARG KOPS_URL=https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION
 
 ENV HOME=/home/${USER}/
 
+# Install git and enable SSL
+RUN apk add --update --no-cache ca-certificates git
+
 # Install helm
 RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/linux-amd64/helm /bin/helm \
