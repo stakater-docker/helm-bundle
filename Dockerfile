@@ -37,7 +37,7 @@ ADD ${KUBECTL_URL} /usr/local/bin/kubectl
 # Install kops
 ADD ${KOPS_URL} /usr/local/bin/kops
 
-# Set kubectl permissions and verify that installed tools work
+# Set executable permissions and verify that installed tools work
 RUN set -x \
     && chmod +x /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kops \
